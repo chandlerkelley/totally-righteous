@@ -119,6 +119,10 @@
 	border: solid 2px #cdf;
 	border-radius: 8px;
 	margin: 0px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
 }
 
 .black {
@@ -126,6 +130,7 @@
 	margin: 0 -22px;
 	background-color:#000;
 	z-index:2;
+	color:#fff;
 }
 
 .key:hover {
@@ -138,4 +143,3 @@ canvas {
 	margin: 0 auto;
 	border-radius: 10px;
 }
-

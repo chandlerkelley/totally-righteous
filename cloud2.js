@@ -5,6 +5,8 @@ var xC = -220;
 var noteWidth = 40;
 var xNotePosition = canvas.width + 150;
 var noteSpeed = 2;
+var score = 0;
+var highScore = 0;
 
 var furElise = ["e2",["d#2",true],"e2",["d#2",true],"e2","b1","d2","c2","a1","x","x",
 		"c1","e1","a1","b1","x","x","e1",["g#1",true],"b1","c2","x",
@@ -91,8 +93,96 @@ var draw = function () {
 	xNotePosition -= noteSpeed;
 };
 
+$(document).keydown(function(e) {
+	if (e.keyCode === 81) {
+		$("#c-1").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 50) {
+		$("#c-sharp-1").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 87) {
+		$("#d-1").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 51) {
+		$("#d-sharp-1").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 69) {
+		$("#e-1").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 82) {
+		$("#f-1").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 53) {
+		$("#f-sharp-1").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 84) {
+		$("#g-1").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 54) {
+		$("#g-sharp-1").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 89) {
+		$("#a-1").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 55) {
+		$("#a-sharp-1").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 85) {
+		$("#b-1").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 73) {
+		$("#c-2").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 57) {
+		$("#c-sharp-2").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 79) {
+		$("#d-2").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 48) {
+		$("#d-sharp-2").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 80) {
+		$("#e-2").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 219) {
+		$("#f-2").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 187) {
+		$("#f-sharp-2").css("background-color", "#c0ac49");
+	} else if (e.keyCode === 221) {
+		$("#g-2").css("background-color", "#c0ac49");
+	}
+})
+
 $(document).keyup(function(e) {
-	if (e.keyCode == 13) {
+	if (e.keyCode === 81) {
+		$("#c-1").css("background-color", "#fff");
+	} else if (e.keyCode === 50) {
+		$("#c-sharp-1").css("background-color", "#000");
+	} else if (e.keyCode === 87) {
+		$("#d-1").css("background-color", "#fff");
+	} else if (e.keyCode === 51) {
+		$("#d-sharp-1").css("background-color", "#000");
+	} else if (e.keyCode === 69) {
+		$("#e-1").css("background-color", "#fff");
+	} else if (e.keyCode === 82) {
+		$("#f-1").css("background-color", "#fff");
+	} else if (e.keyCode === 53) {
+		$("#f-sharp-1").css("background-color", "#000");
+	} else if (e.keyCode === 84) {
+		$("#g-1").css("background-color", "#fff");
+	} else if (e.keyCode === 54) {
+		$("#g-sharp-1").css("background-color", "#000");
+	} else if (e.keyCode === 89) {
+		$("#a-1").css("background-color", "#fff");
+	} else if (e.keyCode === 55) {
+		$("#a-sharp-1").css("background-color", "#000");
+	} else if (e.keyCode === 85) {
+		$("#b-1").css("background-color", "#fff");
+	} else if (e.keyCode === 73) {
+		$("#c-2").css("background-color", "#fff");
+	} else if (e.keyCode === 57) {
+		$("#c-sharp-2").css("background-color", "#000");
+	} else if (e.keyCode === 79) {
+		$("#d-2").css("background-color", "#fff");
+	} else if (e.keyCode === 48) {
+		$("#d-sharp-2").css("background-color", "#000");
+	} else if (e.keyCode === 80) {
+		$("#e-2").css("background-color", "#fff");
+	} else if (e.keyCode === 219) {
+		$("#f-2").css("background-color", "#fff");
+	} else if (e.keyCode === 187) {
+		$("#f-sharp-2").css("background-color", "#000");
+	} else if (e.keyCode === 221) {
+		$("#g-2").css("background-color", "#fff");
+	}
+})
+
+$(document).keyup(function(e) {
+	if (e.keyCode === 13) {
 		$(".intro").hide();
 		setInterval (draw, 20);
 	}
