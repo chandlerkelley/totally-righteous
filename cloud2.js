@@ -16,7 +16,7 @@ var furElise = ["e2",["d#2",true],"e2",["d#2",true],"e2","b1","d2","c2","a1","x"
 //this one is just a test
 var drawNote = function (yNotePosition) {
 	context.beginPath();
-	context.ellipse(200, yNotePosition, 18, 14, 0 * Math.PI/180, 0, 2 * Math.PI);
+	context.ellipse(xNotePosition, yNotePosition, 18, 14, 0 * Math.PI/180, 0, 2 * Math.PI);
 	context.strokeStyle = "#c0ac49";
 	context.stroke();
 }
@@ -90,6 +90,15 @@ var drawBlackKeys = function () {
 	};
 };
 
+var drawMeasure = function () {
+	context.beginPath();
+	context.moveTo(145, 140);
+	context.lineTo(145, 320);
+	context.lineWidth = 8;
+	context.strokeStyle = "#c0ac49";
+	context.stroke();
+};
+
 var drawCloud = function(xC, yC, s) {
 	context.beginPath();
 	context.moveTo(xC, yC);
@@ -116,7 +125,9 @@ var draw = function () {
 		};
 		xC = 0 - 21*clouds[cloudNumber][1];
 	};
+	drawMeasure();
 	drawNote(143);
+	xNotePosition -= noteSpeed;
 };
 
 setInterval (draw, 20);
