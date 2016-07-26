@@ -1,7 +1,58 @@
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
-var n = 0;
+var cloudNumber = 0;
 var xC = -220;
+var noteWidth = 40;
+var xNotePosition = canvas.width;
+var noteSpeed = 2;
+
+var furElise = ["e2",["d#2",true],"e2",["d#2",true],"e2","b1","d2","c2","a1","x","x",
+		"c1","e1","a1","b1","x","x","e1",["g#1",true],"b1","c2","x",
+		"x","e1","e2",["d#2",true],"e2",["d#2",true],"e2","b1","d2","c2","a1","x","x",
+		"c1","e1","a1","b1","x","x","d1","c2","b2","a2","x","x",
+		"b1","c2","d2","e2","x","x","g1","f2","e2","d2","x","x",
+		"f1","e2","d2","c2","x","x","e1","d2","c2","b1"]
+
+//this one is just a test
+var drawNote = function (yNotePosition) {
+	context.beginPath();
+	context.ellipse(200, yNotePosition, 18, 14, 0 * Math.PI/180, 0, 2 * Math.PI);
+	context.strokeStyle = "#c0ac49";
+	context.stroke();
+}
+
+var drawNatural = function (yNotePosition) {
+	context.beginPath();
+	context.ellipse(xNotePosition, yNotePosition, 18, 14, 0 * Math.PI/180, 0, 2 * Math.PI);
+	context.strokeStyle = "#c0ac49";
+	context.stroke();
+}
+
+var drawSharp = function (yNotePosition) {
+	context.beginPath();
+	context.ellipse(xNotePosition, yNotePosition, 18, 14, 0 * Math.PI/180, 0, 2 * Math.PI);
+	context.strokeStyle = "#c0ac49";
+	context.stroke();
+}
+
+var drawSong = function () {
+	for (i=0, len=furElise.length; i<len; i++) {
+		if (furElise[i] === "x") {
+			xNotePosition+=24;
+			//this is arbitary!!
+		} else if (furElise[i][2] === true) {
+			drawSharp(furElise[i][1]);
+			xNotePosition+=24;
+		} else {
+			drawNatural(furElise[i][1]);
+			xNotePosition+=24;
+		}
+	}
+	xNotePosition-=noteSpeed;		
+}
+
+
+
 
 var keyWidth = canvas.width/14;
 var keyWhiteHeight = canvas.height/4;
@@ -39,15 +90,6 @@ var drawBlackKeys = function () {
 	};
 };
 
-// drawWhiteKeys();
-
-// var drawWhiteKey = function () {
-// 	context.fillStyle = "#fff";
-// 	context.fillRect(keyWidth, 0, keyWidth, keyWhiteHeight);
-// };
-
-// drawWhiteKey();
-
 var drawCloud = function(xC, yC, s) {
 	context.beginPath();
 	context.moveTo(xC, yC);
@@ -63,19 +105,18 @@ var drawCloud = function(xC, yC, s) {
 
 var draw = function () {
 	context.clearRect(0,0,canvas.width,canvas.height);
-	// drawWhiteKeys();
-	// drawBlackKeys();
 	var clouds = [[270,10,0.8,], [110, 8, 1.3], [200, 15, 0.6]];
-	speed = clouds[n][2]
-	drawCloud(xC,clouds[n][0],clouds[n][1]);
+	speed = clouds[cloudNumber][2]
+	drawCloud(xC,clouds[cloudNumber][0],clouds[cloudNumber][1]);
 	xC += speed;
-	if (xC > canvas.width + 20.5*clouds[n][1]) {
-		n+=1;
-		if (n>2) {
-			n=0;
+	if (xC > canvas.width + 20.5*clouds[cloudNumber][1]) {
+		cloudNumber+=1;
+		if (cloudNumber>2) {
+			cloudNumber=0;
 		};
-		xC = 0 - 21*clouds[n][1];
+		xC = 0 - 21*clouds[cloudNumber][1];
 	};
+	drawNote(143);
 };
 
 setInterval (draw, 20);
