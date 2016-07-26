@@ -7,6 +7,7 @@ var xNotePosition = canvas.width + 150;
 var noteSpeed = 2;
 var score = 0;
 var highScore = 0;
+var intervalId = undefined;
 
 var furElise = ["e2",["d#2",true],"e2",["d#2",true],"e2","b1","d2","c2","a1","x","x",
 		"c1","e1","a1","b1","x","x","e1",["g#1",true],"b1","c2","x",
@@ -91,6 +92,11 @@ var draw = function () {
 	drawMeasure ();
 	drawNote (143);
 	xNotePosition -= noteSpeed;
+	if (xNotePosition <= 145) {
+		clearInterval(intervalId);
+		$(".intro").show();
+		xNotePosition = canvas.width + 150;
+	};
 };
 
 $(document).keydown(function(e) {
@@ -184,8 +190,8 @@ $(document).keyup(function(e) {
 $(document).keyup(function(e) {
 	if (e.keyCode === 13) {
 		$(".intro").hide();
-		setInterval (draw, 20);
-	}
+		intervalId = setInterval (draw, 20);
+	};
 });
 
 

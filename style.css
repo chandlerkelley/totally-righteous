@@ -28,28 +28,28 @@
 }
 
 .angel {
-	height: 140px;
+	height: 120px;
 	position: absolute;
-	top: 0;
-	right: 20px;
+	top: 5px;
+	right: 15px;
 }
 
 .intro {
 	position: absolute;
 	top: 120px;
-	left: 140px;
+	left: 138px;
 	width: 525px;
 	height: 220px;
 	background-color:#fdfcf8;
 	border-radius: 10px;
 	border: solid 4px #c0ac49;
-	transition: 1s;
+	box-sizing: border-box;
 	z-index: 1;
 }
 
 .intro:after {
   content: "";
-  display: block; /* reduce the damage in FF3.0 */
+  display: block;
   position: absolute;
   top: -30px;
   right: 10px;
@@ -133,8 +133,15 @@
 	color:#fff;
 }
 
-.key:hover {
-	background-color:#ddd;
+h3 {
+	font-family: sans-serif;
+	font-size: 14px;
+}
+
+.key p {
+	font-family: sans-serif;
+	font-size: 9px;
+	margin: 4px;
 }
 
 canvas {
