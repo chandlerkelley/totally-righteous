@@ -51,45 +51,6 @@ var drawSong = function () {
 	xNotePosition-=noteSpeed;		
 }
 
-
-
-
-var keyWidth = canvas.width/14;
-var keyWhiteHeight = canvas.height/4;
-var keyBlackHeight = canvas.height/7;
-
-var drawWhiteKeys = function () {
-	xWK = keyWidth;
-	for (i=0; i<12; i++) {
-		context.beginPath();
-		context.rect(xWK, canvas.height-keyWhiteHeight-.05*canvas.height, keyWidth, keyWhiteHeight);
-		context.closePath();
-		context.strokeStyle = "#cdf";
-		context.stroke();
-		context.fillStyle = "#fff";
-		context.fill();
-		xWK += keyWidth;
-	};
-};
-
-var drawBlackKeys = function () {
-	xWK = 1.5*keyWidth;
-	for (i=0; i<11; i++) {
-		if (i%7 ===0 || i ===3 || i ===10) {
-			xWK +=keyWidth;
-		} else {
-			context.beginPath();
-			context.rect(xWK, canvas.height-keyWhiteHeight-.05*canvas.height, keyWidth, keyBlackHeight);
-			context.closePath();
-			context.strokeStyle = "cdf";
-			context.stroke();
-			context.fillStyle = "#000";
-			context.fill();
-			xWK += keyWidth;
-		};
-	};
-};
-
 var drawMeasure = function () {
 	context.beginPath();
 	context.moveTo(145, 140);
