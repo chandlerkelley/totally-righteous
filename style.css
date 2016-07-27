@@ -62,6 +62,7 @@
 .intro p {
 	margin: 15px;
 	line-height: 1.5;
+	text-align: justify;
 }
 
 .intro h2 {
@@ -142,6 +143,38 @@ h3 {
 	font-family: sans-serif;
 	font-size: 9px;
 	margin: 4px;
+}
+
+.score-table {
+	position: absolute;
+	width: 80px;
+	height: 130px;
+	right: 30px;
+	bottom: 10px;
+	background-color: rgba(255,255,255,.5);
+	border-radius: 8px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-family: sans-serif;
+}
+
+.score-label {
+	text-align: center;
+	margin: 0 0 4px;
+}
+
+.high-score-label {
+	text-align: center;
+	margin: 6px 4px 4px;
+}
+
+.score-div {
+	width: 50px;
+	height: 25px;
+	background-color: rgba(255,255,255,.5);
+	border-radius: 6px;
 }
 
 canvas {
