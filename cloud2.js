@@ -58,7 +58,7 @@ var furElise = [
 // 	["d1"],
 // 	["c2", 73, 253],
 // 	["b2"],
-// 	["a2"],
+// 	["a1"],
 // 	["x"],
 // 	["x"],
 // 	["b1", 85, 275],
@@ -187,7 +187,8 @@ var draw = function () {
 		if (score > highScore) {
 			highScore = score;
 		};
-		notesPlayed = 0;
+		document.getElementById("high-score-p").innerHTML = highScore;
+		playedNotes = 0;
 	};
 };
 
@@ -279,10 +280,16 @@ $(document).keyup(function(e) {
 	}
 })
 
+$(document).ready( function() {
+	document.getElementById("score-p").innerHTML = score;
+	document.getElementById("high-score-p").innerHTML = highScore;
+});
+
 $(document).keyup(function(e) {
 	if (e.keyCode === 13 && gameOn === false) {
 		gameOn = true;
 		score = 0;
+		document.getElementById("score-p").innerHTML = score;
 		$(".intro").hide();
 		intervalId = setInterval (draw, 20);
 	};
@@ -295,8 +302,9 @@ $(document).keydown(function(e) {
 		playedNotes++;
 		leadNotePosition += noteWidth;
 		score += 5;
-		//Update score here somehow
-		if (furElise[notesPlayed][0] === "x") {
+		// PLAY NOTE
+		document.getElementById("score-p").innerHTML = score;
+		if (furElise[playedNotes][0] === "x") {
 			playedNotes++;
 			leadNotePosition += noteWidth;
 		};
@@ -310,10 +318,26 @@ $(document).keydown(function(e) {
 			gameOn = false;
 			if (score > highScore) {
 			highScore = score;
-			notesPlayed = 0;
+			playedNotes = 0;
 			};
 		};
-	};
+	} else if (e.keyCode === 27) {
+		clearInterval(intervalId);
+		$(".intro").show();
+		songPosition = canvas.width + 150
+		xNotePosition = songPosition;
+		leadNotePosition = songPosition;
+		gameOn = false;
+		if (score > highScore) {
+			highScore = score;
+		};
+		document.getElementById("high-score-p").innerHTML = highScore;
+		playedNotes = 0;
+	} else {
+		score -= 1;
+		document.getElementById("score-p").innerHTML = score;
+		// MAKE HONKING SOUND
+	}
 });
 
 

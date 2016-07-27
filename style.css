@@ -175,6 +175,9 @@ h3 {
 	height: 25px;
 	background-color: rgba(255,255,255,.5);
 	border-radius: 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 canvas {
