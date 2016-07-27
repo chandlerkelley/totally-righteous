@@ -19,51 +19,51 @@ var furElise = [
 	["e2", 80, 165],
 	["d#2", 48, 187],
 	["e2", 80, 165],
-	["b1", 85, 275],
-	["d2", 79, 209],
-	["c2", 73, 253],
-	["a1", 89, 320]
-// 	["x"],
-// 	["x"],
-// 	["c1"],
-// 	["e1"],
-// 	["a1", 89, 320],
-// 	["b1", 85, 275],
-// 	["x"],
-// 	["x"],
-// 	["e1"],
-// 	["g#1"],
-// 	["b1", 85, 275],
-// 	["c2", 73, 253],
-// 	["x"],
-// 	["x"],
-// 	["e1"],
+	["b1", 85, 231],
+	["d2", 79, 187],
+	["c2", 73, 209],
+	["a1", 89, 319],
+	["x", 0, 0],
+	["x", 0, 0],
+	["c1", 81, 365],
+	["e1", 69, 319],
+	["a1", 89, 319],
+	["b1", 85, 231],
+// 	["x", null, null],
+// 	["x", null, null],
+// 	["e1", 69, 319],
+// 	["g#1", 54, 275],
+// 	["b1", 85, 231],
+// 	["c2", 73, 209],
+// 	["x", null, null],
+// 	["x", null, null],
+// 	["e1", 69, 319],
 // 	["e2", 80, 187],
 // 	["d#2", 48, 143],
-// 	["e2"],
+// 	["e2", 80, 165],
 // 	["d#2", 48, 187],
 // 	["e2", 80, 165],
-// 	["b1", 85, 275],
-// 	["d2", 79, 209],
-// 	["c2", 73, 253],
-// 	["a1", 89, 320],
-// 	["x"],
-// 	["x"],
-// 	["c1"],
-// 	["e1"],
-// 	["a1", 89, 320],
-// 	["b1", 85, 275],
-// 	["x"],
-// 	["x"],
+// 	["b1", 85, 231],
+// 	["d2", 79, 187],
+// 	["c2", 73, 209],
+// 	["a1", 89, 319],
+// 	["x", null, null],
+// 	["x", null, null],
+// 	["c1" 81, 365],
+// 	["e1", 69, 319],
+// 	["a1", 89, 319],
+// 	["b1", 85, 231],
+// 	["x", null, null],
+// 	["x", null, null],
 // 	["d1"],
-// 	["c2", 73, 253],
+// 	["c2", 73, 209],
 // 	["b2"],
 // 	["a1"],
 // 	["x"],
 // 	["x"],
-// 	["b1", 85, 275],
-// 	["c2", 73, 253],
-// 	["d2", 79, 209],
+// 	["b1", 85, 231],
+// 	["c2", 73, 209],
+// 	["d2", 79, 187],
 // 	["e2", 80, 165],
 // 	["x"],
 // 	["x"],
@@ -75,14 +75,14 @@ var furElise = [
 // 	["x"],
 // 	["f1"],
 // 	["e2", 80, 165],
-// 	["d2", 79, 209],
-// 	["c2", 73, 253],
+// 	["d2", 79, 187],
+// 	["c2", 73, 209],
 // 	["x"],
 // 	["x"],
-// 	["e1"],
-// 	["d2", 79, 209],
-// 	["c2", 73, 253],
-// 	["b1", 85, 275]
+// 	["e1", 69, 319],
+// 	["d2", 79, 187],
+// 	["c2", 73, 209],
+// 	["b1", 85, 231]
 ]
 
 //this one is just a test
@@ -91,6 +91,20 @@ var drawNote = function (yNotePosition) {
 	context.ellipse (xNotePosition, yNotePosition, 18, 14, 0 * Math.PI/180, 0, 2 * Math.PI);
 	context.strokeStyle = "#c0ac49";
 	context.stroke ();
+}
+
+var endGame = function () {
+	clearInterval(intervalId);
+	gameOn = false;
+	songPosition = canvas.width + 150
+	xNotePosition = songPosition;
+	leadNotePosition = songPosition;
+	playedNotes = 0;
+	if (score > highScore) {
+			highScore = score;
+			document.getElementById("high-score-p").innerHTML = highScore;
+	score = 0;
+	};
 }
 
 var drawNatural = function (yNotePosition, isDark) {
@@ -121,8 +135,8 @@ var drawSong = function () {
 		if (i < playedNotes) {
 			dark = true;
 		}
-		if (furElise[i] === "x") {
-			xNotePosition += noteWidth;
+		if (furElise[i][0] === "x") {
+			xNotePosition += (noteWidth/2);
 			//this is an arbitary amount!!
 		} else if (furElise[i][0].includes("#") === true) {
 			drawSharp (furElise[i][2], dark);
@@ -150,19 +164,21 @@ var drawCloud = function (xC, yC, s) {
 	context.bezierCurveTo (xC+9*s, yC-10*s, xC+16*s, yC-9*s, xC+16*s, yC-3*s);
 	context.bezierCurveTo (xC+18*s, yC-5*s, xC+22*s, yC-3*s, xC+20*s, yC);
 	context.lineTo (xC,yC);
+	context.closePath ();
 	context.lineWidth = 3;
 	context.strokeStyle = 'rgba(255,255,255,0.8)';
 	context.stroke ();
-	context.closePath ();
+	context.fillStyle = 'rgba(255,255,255,0.3)';
+	context.fill();
 };
 
 var draw = function () {
 	context.clearRect (0,0,canvas.width,canvas.height);
-	var clouds = [ [270,10,0.8,], [110, 8, 1.3], [200, 15, 0.6] ];
-	speed = clouds[cloudNumber][2]
+	var clouds = [ [110, 12, 1.3], [395, 25, 0.8] , [265,18,1.1,]];
+	cloudSpeed = clouds[cloudNumber][2]
 	drawCloud (xC,clouds[cloudNumber][0],clouds[cloudNumber][1]);
-	xC += speed;
-	if (xC > canvas.width + 20.5 * clouds[cloudNumber][1]) {
+	xC += cloudSpeed;
+	if (xC > canvas.width + clouds[cloudNumber][1]) {
 		cloudNumber += 1;
 		if (cloudNumber > 2) {
 			cloudNumber = 0;
@@ -176,18 +192,8 @@ var draw = function () {
 	leadNotePosition -= noteSpeed;
 	//for when you lose :(
 	if (leadNotePosition <= 163) {
-		clearInterval(intervalId);
+		endGame();
 		$("#lose").show();
-		songPosition = canvas.width + 150
-		xNotePosition = songPosition;
-		leadNotePosition = songPosition;
-		gameOn = false;
-		playedNotes = 0;
-		if (score > highScore) {
-			highScore = score;
-		document.getElementById("high-score-p").innerHTML = highScore;
-		};
-		score=0;
 	};
 };
 
@@ -304,34 +310,20 @@ $(document).keydown(function(e) {
 		score += 5;
 		// PLAY NOTE
 		document.getElementById("score-p").innerHTML = score;
-		// for when you win
+		//if you win
 		if (playedNotes === furElise.length) {
-			clearInterval(intervalId);
+			endGame();
 			$("#win").show();
-			songPosition = canvas.width + 150;
-			xNotePosition = songPosition;
-			leadNotePosition = songPosition;
-			gameOn = false;
-			if (score > highScore) {
-				highScore = score;
-				document.getElementById("high-score-p").innerHTML = highScore;
+		}
+		if (furElise[playedNotes][0] === "x") {
+			while (furElise[playedNotes][0] === "x") {
+				playedNotes++;
+				leadNotePosition += (noteWidth/2);
 			};
-			playedNotes = 0;
-		} else if (furElise[playedNotes][0] === "x") {
-			playedNotes++;
 		};
 	} else if (e.keyCode === 27) {
-		clearInterval(intervalId);
+		endGame();
 		$("#begin").show();
-		songPosition = canvas.width + 150
-		xNotePosition = songPosition;
-		leadNotePosition = songPosition;
-		gameOn = false;
-		if (score > highScore) {
-			highScore = score;
-			document.getElementById("high-score-p").innerHTML = highScore;
-		};
-		playedNotes = 0;
 	//if you press the wrong key
 	} else {
 		score -= 1;
