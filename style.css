@@ -70,6 +70,14 @@
 	text-align: center;
 }
 
+#win {
+	display:none;
+}
+
+#lose {
+	display:none;
+}
+
 #enter {
 	font-size: 20px;
 	font-family: monospace;

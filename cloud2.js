@@ -22,7 +22,7 @@ var furElise = [
 	["b1", 85, 275],
 	["d2", 79, 209],
 	["c2", 73, 253],
-	["a1", 89, 320],
+	["a1", 89, 320]
 // 	["x"],
 // 	["x"],
 // 	["c1"],
@@ -102,7 +102,6 @@ var drawNatural = function (yNotePosition, isDark) {
 		context.strokeStyle = "#c0ac49";
 	}
 	context.stroke ();
-	console.log(yNotePosition);
 }
 
 var drawSharp = function (yNotePosition, isDark) {
@@ -114,7 +113,6 @@ var drawSharp = function (yNotePosition, isDark) {
 		context.strokeStyle = "#c0ac49";
 	}
 	context.stroke ();
-	console.log(yNotePosition);
 }
 
 var drawSong = function () {
@@ -179,16 +177,17 @@ var draw = function () {
 	//for when you lose :(
 	if (leadNotePosition <= 163) {
 		clearInterval(intervalId);
-		$(".intro").show();
+		$("#lose").show();
 		songPosition = canvas.width + 150
 		xNotePosition = songPosition;
 		leadNotePosition = songPosition;
 		gameOn = false;
+		playedNotes = 0;
 		if (score > highScore) {
 			highScore = score;
-		};
 		document.getElementById("high-score-p").innerHTML = highScore;
-		playedNotes = 0;
+		};
+		score=0;
 	};
 };
 
@@ -298,41 +297,42 @@ $(document).keyup(function(e) {
 // for when you try to play a note
 
 $(document).keydown(function(e) {
+	// for playing the right key
 	if (e.keyCode === furElise[playedNotes][1] && gameOn === true) {
 		playedNotes++;
 		leadNotePosition += noteWidth;
 		score += 5;
 		// PLAY NOTE
 		document.getElementById("score-p").innerHTML = score;
-		if (furElise[playedNotes][0] === "x") {
-			playedNotes++;
-			leadNotePosition += noteWidth;
-		};
 		// for when you win
-		if (playedNotes.length === furElise.length) {
-			alert("You win!");
-			$(".intro").show();
-			songPosition = canvas.width + 150
+		if (playedNotes === furElise.length) {
+			clearInterval(intervalId);
+			$("#win").show();
+			songPosition = canvas.width + 150;
 			xNotePosition = songPosition;
 			leadNotePosition = songPosition;
 			gameOn = false;
 			if (score > highScore) {
-			highScore = score;
-			playedNotes = 0;
+				highScore = score;
+				document.getElementById("high-score-p").innerHTML = highScore;
 			};
+			playedNotes = 0;
+		} else if (furElise[playedNotes][0] === "x") {
+			playedNotes++;
 		};
 	} else if (e.keyCode === 27) {
 		clearInterval(intervalId);
-		$(".intro").show();
+		$("#begin").show();
 		songPosition = canvas.width + 150
 		xNotePosition = songPosition;
 		leadNotePosition = songPosition;
 		gameOn = false;
 		if (score > highScore) {
 			highScore = score;
+			document.getElementById("high-score-p").innerHTML = highScore;
 		};
-		document.getElementById("high-score-p").innerHTML = highScore;
 		playedNotes = 0;
+	//if you press the wrong key
 	} else {
 		score -= 1;
 		document.getElementById("score-p").innerHTML = score;
