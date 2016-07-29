@@ -7,91 +7,86 @@ var songPosition = canvas.width + 150;
 var xNotePosition = songPosition;
 var leadNotePosition = songPosition;
 var playedNotes = 0;
-var noteSpeed = 2;
+var noteSpeed = 2.4;
 var score = 0;
 var highScore = 0;
 var intervalId = undefined;
 var gameOn = false;
 
 var furElise = [
-	["e2", 80, 165],
-	["d#2", 48, 187],
-	["e2", 80, 165],
-	["d#2", 48, 187],
-	["e2", 80, 165],
-	["b1", 85, 231],
-	["d2", 79, 187],
-	["c2", 73, 209],
-	["a1", 89, 319],
-	["x", 0, 0],
-	["x", 0, 0],
-	["c1", 81, 365],
-	["e1", 69, 319],
-	["a1", 89, 319],
-	["b1", 85, 231],
-// 	["x", null, null],
-// 	["x", null, null],
-// 	["e1", 69, 319],
-// 	["g#1", 54, 275],
-// 	["b1", 85, 231],
-// 	["c2", 73, 209],
-// 	["x", null, null],
-// 	["x", null, null],
-// 	["e1", 69, 319],
-// 	["e2", 80, 187],
-// 	["d#2", 48, 143],
-// 	["e2", 80, 165],
-// 	["d#2", 48, 187],
-// 	["e2", 80, 165],
-// 	["b1", 85, 231],
-// 	["d2", 79, 187],
-// 	["c2", 73, 209],
-// 	["a1", 89, 319],
-// 	["x", null, null],
-// 	["x", null, null],
-// 	["c1" 81, 365],
-// 	["e1", 69, 319],
-// 	["a1", 89, 319],
-// 	["b1", 85, 231],
-// 	["x", null, null],
-// 	["x", null, null],
-// 	["d1"],
-// 	["c2", 73, 209],
-// 	["b2"],
-// 	["a1"],
-// 	["x"],
-// 	["x"],
-// 	["b1", 85, 231],
-// 	["c2", 73, 209],
-// 	["d2", 79, 187],
-// 	["e2", 80, 165],
-// 	["x"],
-// 	["x"],
-// 	["g1"],
-// 	["f2"],
-// 	["e2", 80, 165],
-// 	["d2"],
-// 	["x"],
-// 	["x"],
-// 	["f1"],
-// 	["e2", 80, 165],
-// 	["d2", 79, 187],
-// 	["c2", 73, 209],
-// 	["x"],
-// 	["x"],
-// 	["e1", 69, 319],
-// 	["d2", 79, 187],
-// 	["c2", 73, 209],
-// 	["b1", 85, 231]
+	["e2", 80, 163],
+	["d#2", 48, 185],
+	["e2", 80, 163],
+	["d#2", 48, 185],
+	["e2", 80, 163],
+	["b1", 85, 227],
+	["d2", 79, 185],
+	["c2", 73, 206],
+	["a1", 89, 247],
+	["x", null, null],
+	["x", null, null],
+	["c1", 81, 348],
+	["e1", 69, 310],
+	["a1", 89, 247],
+	["b1", 85, 227],
+	["x", null, null],
+	["x", null, null],
+	["e1", 69, 310],
+	["g#1", 54, 267],
+	["b1", 85, 227],
+	["c2", 73, 206],
+	["x", null, null],
+	["x", null, null],
+	["e1", 69, 310],
+	["e2", 80, 163],
+	["d#2", 48, 185],
+	["e2", 80, 163],
+	["d#2", 48, 185],
+	["e2", 80, 163],
+	["b1", 85, 227],
+	["d2", 79, 185],
+	["c2", 73, 206],
+	["a1", 89, 247],
+	["x", null, null],
+	["x", null, null],
+	["c1", 81, 348],
+	["e1", 69, 310],
+	["a1", 89, 247],
+	["b1", 85, 227],
+	["x", null, null],
+	["x", null, null],
+	["d1", 87, 328],
+	["c2", 73, 206],
+	["b1", 85, 227],
+	["a1", 89, 247],
+	["x", null, null],
+	["x", null, null],
+	["b1", 85, 227],
+	["c2", 73, 206],
+	["d2", 79, 185],
+	["e2", 80, 163],
+	["x", null, null],
+	["x", null, null],
+	["g1", 84, 267],
+	["f2", 219, 143],
+	["e2", 80, 163],
+	["d2", 79, 185],
+	["x", null, null],
+	["x", null, null],
+	["f1", 82, 290],
+	["e2", 80, 163],
+	["d2", 79, 185],
+	["c2", 73, 206],
+	["x", null, null],
+	["x", null, null],
+	["e1", 69, 310],
+	["d2", 79, 185],
+	["c2", 73, 206],
+	["b1", 85, 227],
+	["x", null, null],
+	["x", null, null],
+	["e1", 69, 310],
 ]
-
-//this one is just a test
-var drawNote = function (yNotePosition) {
-	context.beginPath ();
-	context.ellipse (xNotePosition, yNotePosition, 18, 14, 0 * Math.PI/180, 0, 2 * Math.PI);
-	context.strokeStyle = "#c0ac49";
-	context.stroke ();
-}
 
 var endGame = function () {
 	clearInterval(intervalId);
@@ -108,24 +103,38 @@ var endGame = function () {
 }
 
 var drawNatural = function (yNotePosition, isDark) {
-	context.beginPath ();
-	context.ellipse (xNotePosition, yNotePosition, 18, 14, 0 * Math.PI/180, 0, 2 * Math.PI);
 	if (isDark === true) {
 		context.strokeStyle = "rgba(192, 172, 73, .25)";
 	} else {
 		context.strokeStyle = "#c0ac49";
 	}
+	context.lineWidth = 7;
+	context.beginPath ();
+	context.ellipse (xNotePosition, yNotePosition, 16, 12, 0 * Math.PI/180, 0, 2 * Math.PI);
 	context.stroke ();
 }
 
 var drawSharp = function (yNotePosition, isDark) {
-	context.beginPath ();
-	context.ellipse (xNotePosition, yNotePosition, 18, 14, 0 * Math.PI/180, 0, 2 * Math.PI);
 	if (isDark === true) {
 		context.strokeStyle = "rgba(192, 172, 73, .25)";
 	} else {
 		context.strokeStyle = "#c0ac49";
 	}
+	context.lineWidth = 7;
+	context.beginPath ();
+	context.ellipse (xNotePosition, yNotePosition, 16, 12, 0 * Math.PI/180, 0, 2 * Math.PI);
+	context.stroke ();
+	context.closePath();
+	context.beginPath ();
+	context.lineWidth = 3;
+	context.moveTo (xNotePosition-30, yNotePosition+12);
+	context.lineTo (xNotePosition-28, yNotePosition-12);
+	context.moveTo (xNotePosition-40, yNotePosition+12);
+	context.lineTo (xNotePosition-38, yNotePosition-12);
+	context.moveTo (xNotePosition-47, yNotePosition+5);
+	context.lineTo (xNotePosition-21, yNotePosition+5);
+	context.moveTo (xNotePosition-47, yNotePosition-5);
+	context.lineTo (xNotePosition-21, yNotePosition-5);
 	context.stroke ();
 }
 
@@ -148,10 +157,31 @@ var drawSong = function () {
 	};;		
 }
 
+// var drawNote = function (xNotePosition, yNotePosition, isDark) {
+// 	context.beginPath ();
+// 	context.ellipse (xNotePosition, yNotePosition, 16, 12, 0 * Math.PI/180, 0, 2 * Math.PI);
+// 	context.moveTo (xNotePosition-28, yNotePosition+12);
+// 	context.lineTo (xNotePosition-26, yNotePosition-12);
+// 	context.moveTo (xNotePosition-38, yNotePosition+12);
+// 	context.lineTo (xNotePosition-36, yNotePosition-12);
+// 	context.moveTo (xNotePosition-45, yNotePosition+5);
+// 	context.lineTo (xNotePosition-19, yNotePosition+5);
+// 	context.moveTo (xNotePosition-45, yNotePosition-5);
+// 	context.lineTo (xNotePosition-19, yNotePosition-5);
+// 	if (isDark === true) {
+// 		context.strokeStyle = "rgba(192, 172, 73, .25)";
+// 	} else {
+// 		context.strokeStyle = "#c0ac49";
+// 	}
+// 	context.stroke ();
+// }
+
+// drawNote(50, canvas.height - 40, false)
+
 var drawMeasure = function () {
 	context.beginPath ();
 	context.moveTo (145, 140);
-	context.lineTo (145, 320);
+	context.lineTo (145, 312);
 	context.lineWidth = 8;
 	context.strokeStyle = "#c0ac49";
 	context.stroke ();
@@ -197,47 +227,73 @@ var draw = function () {
 	};
 };
 
+var playSound = function (pitch) {
+	var sound = document.getElementById(pitch);
+	sound.currentTime = 0;
+	sound.play();
+}
+
 $(document).keydown(function(e) {
 	if (e.keyCode === 81) {
 		$("#c-1").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("c1")};
 	} else if (e.keyCode === 50) {
 		$("#c-sharp-1").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("c#1")};
 	} else if (e.keyCode === 87) {
 		$("#d-1").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("d1")};
 	} else if (e.keyCode === 51) {
 		$("#d-sharp-1").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("d#1")};
 	} else if (e.keyCode === 69) {
 		$("#e-1").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("e1")};
 	} else if (e.keyCode === 82) {
 		$("#f-1").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("f1")};
 	} else if (e.keyCode === 53) {
 		$("#f-sharp-1").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("f#1")};
 	} else if (e.keyCode === 84) {
 		$("#g-1").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("g1")};
 	} else if (e.keyCode === 54) {
 		$("#g-sharp-1").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("g#1")};
 	} else if (e.keyCode === 89) {
 		$("#a-1").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("a1")};
 	} else if (e.keyCode === 55) {
 		$("#a-sharp-1").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("a#1")};
 	} else if (e.keyCode === 85) {
 		$("#b-1").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("b1")};
 	} else if (e.keyCode === 73) {
 		$("#c-2").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("c2")};
 	} else if (e.keyCode === 57) {
 		$("#c-sharp-2").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("c#2")};
 	} else if (e.keyCode === 79) {
 		$("#d-2").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("d2")};
 	} else if (e.keyCode === 48) {
 		$("#d-sharp-2").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("d#2")};
 	} else if (e.keyCode === 80) {
 		$("#e-2").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("e2")};
 	} else if (e.keyCode === 219) {
 		$("#f-2").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("f2")};
 	} else if (e.keyCode === 187) {
 		$("#f-sharp-2").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("f#2")};
 	} else if (e.keyCode === 221) {
 		$("#g-2").css("background-color", "#c0ac49");
+		if (gameOn === false) {playSound("g2")};
 	}
 })
 
@@ -304,31 +360,35 @@ $(document).keyup(function(e) {
 
 $(document).keydown(function(e) {
 	// for playing the right key
-	if (e.keyCode === furElise[playedNotes][1] && gameOn === true) {
-		playedNotes++;
-		leadNotePosition += noteWidth;
-		score += 5;
-		// PLAY NOTE
-		document.getElementById("score-p").innerHTML = score;
-		//if you win
-		if (playedNotes === furElise.length) {
-			endGame();
-			$("#win").show();
-		}
-		if (furElise[playedNotes][0] === "x") {
-			while (furElise[playedNotes][0] === "x") {
-				playedNotes++;
-				leadNotePosition += (noteWidth/2);
+	if (gameOn === true) {
+		if (e.keyCode === furElise[playedNotes][1]) {
+			var note = furElise[playedNotes][0];
+			playSound(note);
+			playedNotes++;
+			leadNotePosition += noteWidth;
+			score += 5;
+			document.getElementById("score-p").innerHTML = score;
+			//if you win
+			if (playedNotes === furElise.length) {
+				endGame();
+				$("#win").show();
+			}
+			if (furElise[playedNotes][0] === "x") {
+				while (furElise[playedNotes][0] === "x") {
+					playedNotes++;
+					leadNotePosition += (noteWidth/2);
+				};
 			};
-		};
-	} else if (e.keyCode === 27) {
-		endGame();
-		$("#begin").show();
-	//if you press the wrong key
-	} else {
-		score -= 1;
-		document.getElementById("score-p").innerHTML = score;
-		// MAKE HONKING SOUND
+		} else if (e.keyCode === 27) {
+			endGame();
+			$("#begin").show();
+		//if you press the wrong key
+		} else {
+			document.getElementById(flub).play();
+			score -= 1;
+			document.getElementById("score-p").innerHTML = score;
+			// MAKE HONKING SOUND
+		}
 	}
 });
 
