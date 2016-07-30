@@ -1,4 +1,4 @@
-#Joyful Noize
+#Totally Righteous
 
 ##Overview
 
@@ -27,4 +27,4 @@ play an incorrect note.
 * Google Fonts
 
 ##Wireframe
-![Wireframe](wireframe.jpg)
+![Wireframe][images/wireframe.jpg]

@@ -7,85 +7,201 @@ var songPosition = canvas.width + 150;
 var xNotePosition = songPosition;
 var leadNotePosition = songPosition;
 var playedNotes = 0;
-var noteSpeed = 2.4;
+var noteSpeed = 4;
 var score = 0;
 var highScore = 0;
 var intervalId = undefined;
 var gameOn = false;
+var currentSong = 0;
 
-var furElise = [
-	["e2", 80, 163],
-	["d#2", 48, 185],
-	["e2", 80, 163],
-	["d#2", 48, 185],
-	["e2", 80, 163],
-	["b1", 85, 227],
-	["d2", 79, 185],
-	["c2", 73, 206],
-	["a1", 89, 247],
-	["x", null, null],
-	["x", null, null],
-	["c1", 81, 348],
-	["e1", 69, 310],
-	["a1", 89, 247],
-	["b1", 85, 227],
-	["x", null, null],
-	["x", null, null],
-	["e1", 69, 310],
-	["g#1", 54, 267],
-	["b1", 85, 227],
-	["c2", 73, 206],
-	["x", null, null],
-	["x", null, null],
-	["e1", 69, 310],
-	["e2", 80, 163],
-	["d#2", 48, 185],
-	["e2", 80, 163],
-	["d#2", 48, 185],
-	["e2", 80, 163],
-	["b1", 85, 227],
-	["d2", 79, 185],
-	["c2", 73, 206],
-	["a1", 89, 247],
-	["x", null, null],
-	["x", null, null],
-	["c1", 81, 348],
-	["e1", 69, 310],
-	["a1", 89, 247],
-	["b1", 85, 227],
-	["x", null, null],
-	["x", null, null],
-	["d1", 87, 328],
-	["c2", 73, 206],
-	["b1", 85, 227],
-	["a1", 89, 247],
-	["x", null, null],
-	["x", null, null],
-	["b1", 85, 227],
-	["c2", 73, 206],
-	["d2", 79, 185],
-	["e2", 80, 163],
-	["x", null, null],
-	["x", null, null],
-	["g1", 84, 267],
-	["f2", 219, 143],
-	["e2", 80, 163],
-	["d2", 79, 185],
-	["x", null, null],
-	["x", null, null],
-	["f1", 82, 290],
-	["e2", 80, 163],
-	["d2", 79, 185],
-	["c2", 73, 206],
-	["x", null, null],
-	["x", null, null],
-	["e1", 69, 310],
-	["d2", 79, 185],
-	["c2", 73, 206],
-	["b1", 85, 227],
-	["x", null, null],
-	["x", null, null],
-	["e1", 69, 310],
+var songs = [
+	[
+		["b1", 85, 227],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["d2", 79, 185],
+		["x", null, null],
+		["d2", 79, 185],
+		["x", null, null],
+		["x", null, null],
+		["c2", 73, 206],
+		["b1", 85, 227],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["a1", 89, 247],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["d2", 79, 185],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["a1", 89, 247],
+		["g1", 84, 267],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["d2", 79, 185],
+		["x", null, null],
+		["d2", 79, 185],
+		["x", null, null],
+		["x", null, null],
+		["c2", 73, 206],
+		["b1", 85, 227],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["a1", 89, 247],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["d2", 79, 185],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["a1", 89, 247],
+		["g1", 84, 267],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["d2", 79, 185],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["e2", 80, 163],
+		["d2", 79, 185],
+		["c2", 73, 206],
+		["b1", 85, 227],
+		["c2", 73, 206],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["d2", 79, 185],
+		["c2", 73, 206],
+		["b1", 85, 227],
+		["a1", 89, 247],
+		["b1", 85, 227],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["c2", 73, 206],
+		["b1", 85, 227],
+		["a1", 89, 247],
+		["g1", 84, 267],
+		["a1", 89, 247],
+		["x", null, null],
+		["x", null, null],
+		["d1", 87, 328],
+		["d1", 87, 328],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["g1", 84, 267],
+		["x", null, null],
+		["a1", 89, 247],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["c2", 73, 206],
+		["x", null, null],
+		["b1", 85, 227],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["a1", 89, 247],
+		["x", null, null],
+		["x", null, null],
+		["g1", 84, 267],
+		["g1", 84, 267]
+	],
+	[
+		["e2", 80, 163],
+		["d#2", 48, 185],
+		["e2", 80, 163],
+		["d#2", 48, 185],
+		["e2", 80, 163],
+		["b1", 85, 227],
+		["d2", 79, 185],
+		["c2", 73, 206],
+		["a1", 89, 247],
+		["x", null, null],
+		["x", null, null],
+		["c1", 81, 348],
+		["e1", 69, 310],
+		["a1", 89, 247],
+		["b1", 85, 227],
+		["x", null, null],
+		["x", null, null],
+		["e1", 69, 310],
+		["g#1", 54, 267],
+		["b1", 85, 227],
+		["c2", 73, 206],
+		["x", null, null],
+		["x", null, null],
+		["e1", 69, 310],
+		["e2", 80, 163],
+		["d#2", 48, 185],
+		["e2", 80, 163],
+		["d#2", 48, 185],
+		["e2", 80, 163],
+		["b1", 85, 227],
+		["d2", 79, 185],
+		["c2", 73, 206],
+		["a1", 89, 247],
+		["x", null, null],
+		["x", null, null],
+		["c1", 81, 348],
+		["e1", 69, 310],
+		["a1", 89, 247],
+		["b1", 85, 227],
+		["x", null, null],
+		["x", null, null],
+		["d1", 87, 328],
+		["c2", 73, 206],
+		["b1", 85, 227],
+		["a1", 89, 247],
+		["x", null, null],
+		["x", null, null],
+		["b1", 85, 227],
+		["c2", 73, 206],
+		["d2", 79, 185],
+		["e2", 80, 163],
+		["x", null, null],
+		["x", null, null],
+		["g1", 84, 267],
+		["f2", 219, 143],
+		["e2", 80, 163],
+		["d2", 79, 185],
+		["x", null, null],
+		["x", null, null],
+		["f1", 82, 290],
+		["e2", 80, 163],
+		["d2", 79, 185],
+		["c2", 73, 206],
+		["x", null, null],
+		["x", null, null],
+		["e1", 69, 310],
+		["d2", 79, 185],
+		["c2", 73, 206],
+		["b1", 85, 227],
+		["x", null, null],
+		["x", null, null],
+		["e1", 69, 310]
+	]
 ]
 
 var endGame = function () {
@@ -139,44 +255,23 @@ var drawSharp = function (yNotePosition, isDark) {
 }
 
 var drawSong = function () {
-	for (i=0, len=furElise.length; i<len; i++) {
+	for (i=0, len=songs[currentSong].length; i<len; i++) {
 		var dark = false
 		if (i < playedNotes) {
 			dark = true;
 		}
-		if (furElise[i][0] === "x") {
+		if (songs[currentSong][i][0] === "x") {
 			xNotePosition += (noteWidth/2);
 			//this is an arbitary amount!!
-		} else if (furElise[i][0].includes("#") === true) {
-			drawSharp (furElise[i][2], dark);
+		} else if (songs[currentSong][i][0].includes("#") === true) {
+			drawSharp (songs[currentSong][i][2], dark);
 			xNotePosition += noteWidth;
 		} else {
-			drawNatural (furElise[i][2], dark);
+			drawNatural (songs[currentSong][i][2], dark);
 			xNotePosition += noteWidth;
 		};
 	};;		
 }
-
-// var drawNote = function (xNotePosition, yNotePosition, isDark) {
-// 	context.beginPath ();
-// 	context.ellipse (xNotePosition, yNotePosition, 16, 12, 0 * Math.PI/180, 0, 2 * Math.PI);
-// 	context.moveTo (xNotePosition-28, yNotePosition+12);
-// 	context.lineTo (xNotePosition-26, yNotePosition-12);
-// 	context.moveTo (xNotePosition-38, yNotePosition+12);
-// 	context.lineTo (xNotePosition-36, yNotePosition-12);
-// 	context.moveTo (xNotePosition-45, yNotePosition+5);
-// 	context.lineTo (xNotePosition-19, yNotePosition+5);
-// 	context.moveTo (xNotePosition-45, yNotePosition-5);
-// 	context.lineTo (xNotePosition-19, yNotePosition-5);
-// 	if (isDark === true) {
-// 		context.strokeStyle = "rgba(192, 172, 73, .25)";
-// 	} else {
-// 		context.strokeStyle = "#c0ac49";
-// 	}
-// 	context.stroke ();
-// }
-
-// drawNote(50, canvas.height - 40, false)
 
 var drawMeasure = function () {
 	context.beginPath ();
@@ -361,20 +456,22 @@ $(document).keyup(function(e) {
 $(document).keydown(function(e) {
 	// for playing the right key
 	if (gameOn === true) {
-		if (e.keyCode === furElise[playedNotes][1]) {
-			var note = furElise[playedNotes][0];
+		if (e.keyCode === songs[currentSong][playedNotes][1]) {
+			var note = songs[currentSong][playedNotes][0];
 			playSound(note);
 			playedNotes++;
 			leadNotePosition += noteWidth;
 			score += 5;
 			document.getElementById("score-p").innerHTML = score;
 			//if you win
-			if (playedNotes === furElise.length) {
+			if (playedNotes === songs[currentSong].length) {
 				endGame();
+				currentSong++;
 				$("#win").show();
+				// if current song = 3, final screen
 			}
-			if (furElise[playedNotes][0] === "x") {
-				while (furElise[playedNotes][0] === "x") {
+			if (songs[currentSong][playedNotes][0] === "x") {
+				while (songs[currentSong][playedNotes][0] === "x") {
 					playedNotes++;
 					leadNotePosition += (noteWidth/2);
 				};
@@ -384,10 +481,9 @@ $(document).keydown(function(e) {
 			$("#begin").show();
 		//if you press the wrong key
 		} else {
-			document.getElementById(flub).play();
+			document.getElementById("flub").play();
 			score -= 1;
 			document.getElementById("score-p").innerHTML = score;
-			// MAKE HONKING SOUND
 		}
 	}
 });
