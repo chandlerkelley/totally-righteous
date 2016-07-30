@@ -130,6 +130,85 @@ var songs = [
 	],
 	[
 		["e2", 80, 163],
+		["x", null, null],
+		["d#2", 48, 185],
+		["c#2", 57, 206],
+		["b1", 85, 227],
+		["x", null, null],
+		["x", null, null],
+		["a1", 89, 247],
+		["g#1", 54, 267],
+		["x", null, null],
+		["f#1", 82, 290],
+		["x", null, null],
+		["e1", 69, 310],
+		["x", null, null],
+		["x", null, null],
+		["b1", 85, 227],
+		["c#2", 57, 206],
+		["x", null, null],
+		["x", null, null],
+		["c#2", 57, 206],
+		["d#2", 48, 185],
+		["x", null, null],
+		["x", null, null],
+		["d#2", 48, 185],
+		["e2", 80, 163],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["x", null, null],
+		["e2", 80, 163],
+		["e2", 80, 163],
+		["d#2", 48, 185],
+		["c#2", 57, 206],
+		["b1", 85, 227],
+		["b1", 85, 227],
+		["a1", 89, 247],
+		["g#1", 54, 267],
+		["e2", 80, 163],
+		["e2", 80, 163],
+		["d#2", 48, 185],
+		["c#2", 57, 206],
+		["b1", 85, 227],
+		["b1", 85, 227],
+		["a1", 89, 247],
+		["g#1", 54, 267],
+		["f#1", 82, 290],
+		["g#1", 54, 267],
+		["g#1", 54, 267],
+		["g#1", 54, 267],
+		["a1", 89, 247],
+		["b1", 85, 227],
+		["x", null, null],
+		["x", null, null],
+		["g#1", 54, 267],
+		["f#1", 82, 290],
+		["f#1", 82, 290],
+		["f#1", 82, 290],
+		["g#1", 54, 267],
+		["a1", 89, 247],
+		["x", null, null],
+		["x", null, null],
+		["g#1", 54, 267],
+		["e1", 69, 310],
+		["e2", 80, 163],
+		["x", null, null],
+		["c#2", 57, 206],
+		["b1", 85, 227],
+		["x", null, null],
+		["g#1", 54, 267],
+		["a1", 89, 247],
+		["g#1", 54, 267],
+		["x", null, null],
+		["f#1", 82, 290],
+		["x", null, null],
+		["e1", 69, 310],
+	],
+	[
+		["e2", 80, 163],
 		["d#2", 48, 185],
 		["e2", 80, 163],
 		["d#2", 48, 185],
@@ -211,12 +290,7 @@ var endGame = function () {
 	xNotePosition = songPosition;
 	leadNotePosition = songPosition;
 	playedNotes = 0;
-	if (score > highScore) {
-			highScore = score;
-			document.getElementById("high-score-p").innerHTML = highScore;
-	score = 0;
-	};
-}
+};
 
 var drawNatural = function (yNotePosition, isDark) {
 	if (isDark === true) {
@@ -318,6 +392,11 @@ var draw = function () {
 	//for when you lose :(
 	if (leadNotePosition <= 163) {
 		endGame();
+		if (score > highScore) {
+			highScore = score;
+			document.getElementById("high-score-p").innerHTML = highScore;
+		};
+		score = 0;
 		$("#lose").show();
 	};
 };
@@ -444,7 +523,6 @@ $(document).ready( function() {
 $(document).keyup(function(e) {
 	if (e.keyCode === 13 && gameOn === false) {
 		gameOn = true;
-		score = 0;
 		document.getElementById("score-p").innerHTML = score;
 		$(".intro").hide();
 		intervalId = setInterval (draw, 20);
@@ -466,7 +544,9 @@ $(document).keydown(function(e) {
 			//if you win
 			if (playedNotes === songs[currentSong].length) {
 				endGame();
-				currentSong++;
+				if (currentSong > 2) {
+					currentSong++;
+				};
 				$("#win").show();
 				// if current song = 3, final screen
 			}
@@ -478,6 +558,11 @@ $(document).keydown(function(e) {
 			};
 		} else if (e.keyCode === 27) {
 			endGame();
+			if (score > highScore) {
+				highScore = score;
+				document.getElementById("high-score-p").innerHTML = highScore;
+			};
+			score = 0;
 			$("#begin").show();
 		//if you press the wrong key
 		} else {
