@@ -25,6 +25,12 @@ play an incorrect note.
 * Trello
 * Sublime Text
 * Google Fonts
+* Logic
+* Adobe Photoshop
 
 ##Wireframe
 ![Wireframe][images/wireframe.jpg]
+
+##Links
+*[Play the Game][https://chandlerkelley.github.io/totally-righteous/]
+*[Trello Board][https://trello.com/b/XbzL48b5/keyboard-game]
