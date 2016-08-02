@@ -9,7 +9,9 @@ var leadNotePosition = songPosition;
 var playedNotes = 0;
 var noteSpeed = 4;
 var score = 0;
+var $score = null;
 var highScore = 0;
+var $highScore = null;
 var intervalId = undefined;
 var gameOn = false;
 var currentSong = 0;
@@ -397,7 +399,7 @@ var draw = function () {
 			document.getElementById("high-score-p").innerHTML = highScore;
 		};
 		score = 0;
-		$("#lose").show();
+		$("#lose").fadeIn(200);
 	};
 };
 
@@ -516,15 +518,17 @@ $(document).keyup(function(e) {
 })
 
 $(document).ready( function() {
-	document.getElementById("score-p").innerHTML = score;
-	document.getElementById("high-score-p").innerHTML = highScore;
+	$score = document.getElementById("score-p");
+	$score.innerHTML = score;
+	$highScore = document.getElementById("high-score-p");
+	$highScore.innerHTML = highScore;
 });
 
 $(document).keyup(function(e) {
 	if (e.keyCode === 13 && gameOn === false) {
 		gameOn = true;
-		document.getElementById("score-p").innerHTML = score;
-		$(".intro").hide();
+		$score.innerHTML = score;
+		$(".intro").fadeOut(200);
 		intervalId = setInterval (draw, 20);
 	};
 })
@@ -540,14 +544,14 @@ $(document).keydown(function(e) {
 			playedNotes++;
 			leadNotePosition += noteWidth;
 			score += 5;
-			document.getElementById("score-p").innerHTML = score;
+			$score.innerHTML = score;
 			//if you win
 			if (playedNotes === songs[currentSong].length) {
 				endGame();
 				if (currentSong < 2) {
 					currentSong++;
 				};
-				$("#win").show();
+				$("#win").fadeIn(200);
 				// if current song = 3, final screen
 			}
 			if (songs[currentSong][playedNotes][0] === "x") {
@@ -560,15 +564,15 @@ $(document).keydown(function(e) {
 			endGame();
 			if (score > highScore) {
 				highScore = score;
-				document.getElementById("high-score-p").innerHTML = highScore;
+				$highScore.innerHTML = highScore;
 			};
 			score = 0;
-			$("#begin").show();
+			$("#begin").fadeIn(200);
 		//if you press the wrong key
 		} else {
 			playSound("flub");
 			score -= 1;
-			document.getElementById("score-p").innerHTML = score;
+			$score.innerHTML = score;
 		}
 	}
 });
