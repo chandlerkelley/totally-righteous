@@ -139,7 +139,7 @@ var songs = [
 		["a1", 89, 247],
 		["g#1", 54, 267],
 		["x", null, null],
-		["f#1", 82, 290],
+		["f#1", 53, 290],
 		["x", null, null],
 		["e1", 69, 310],
 		["x", null, null],
@@ -176,7 +176,7 @@ var songs = [
 		["b1", 85, 227],
 		["a1", 89, 247],
 		["g#1", 54, 267],
-		["f#1", 82, 290],
+		["f#1", 53, 290],
 		["g#1", 54, 267],
 		["g#1", 54, 267],
 		["g#1", 54, 267],
@@ -185,9 +185,9 @@ var songs = [
 		["x", null, null],
 		["x", null, null],
 		["g#1", 54, 267],
-		["f#1", 82, 290],
-		["f#1", 82, 290],
-		["f#1", 82, 290],
+		["f#1", 53, 290],
+		["f#1", 53, 290],
+		["f#1", 53, 290],
 		["g#1", 54, 267],
 		["a1", 89, 247],
 		["x", null, null],
@@ -203,7 +203,7 @@ var songs = [
 		["a1", 89, 247],
 		["g#1", 54, 267],
 		["x", null, null],
-		["f#1", 82, 290],
+		["f#1", 53, 290],
 		["x", null, null],
 		["e1", 69, 310],
 	],
@@ -544,7 +544,7 @@ $(document).keydown(function(e) {
 			//if you win
 			if (playedNotes === songs[currentSong].length) {
 				endGame();
-				if (currentSong > 2) {
+				if (currentSong < 2) {
 					currentSong++;
 				};
 				$("#win").show();
@@ -566,7 +566,7 @@ $(document).keydown(function(e) {
 			$("#begin").show();
 		//if you press the wrong key
 		} else {
-			document.getElementById("flub").play();
+			playSound("flub");
 			score -= 1;
 			document.getElementById("score-p").innerHTML = score;
 		}
