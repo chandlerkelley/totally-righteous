@@ -285,15 +285,6 @@ var songs = [
 	]
 ]
 
-var endGame = function () {
-	clearInterval(intervalId);
-	gameOn = false;
-	songPosition = canvas.width + 150
-	xNotePosition = songPosition;
-	leadNotePosition = songPosition;
-	playedNotes = 0;
-};
-
 var drawNatural = function (yNotePosition, isDark) {
 	if (isDark === true) {
 		context.strokeStyle = "rgba(192, 172, 73, .25)";
@@ -373,6 +364,7 @@ var drawCloud = function (xC, yC, s) {
 	context.fill();
 };
 
+// this is the looped function that animates the game
 var draw = function () {
 	context.clearRect (0,0,canvas.width,canvas.height);
 	var clouds = [ [110, 12, 1.3], [395, 25, 0.8] , [265,18,1.1,]];
@@ -408,6 +400,15 @@ var playSound = function (pitch) {
 	sound.currentTime = 0;
 	sound.play();
 }
+
+var endGame = function () {
+	clearInterval(intervalId);
+	gameOn = false;
+	songPosition = canvas.width + 150
+	xNotePosition = songPosition;
+	leadNotePosition = songPosition;
+	playedNotes = 0;
+};
 
 $(document).keydown(function(e) {
 	if (e.keyCode === 81) {
@@ -517,6 +518,7 @@ $(document).keyup(function(e) {
 	}
 })
 
+// displays score of zero when page loads
 $(document).ready( function() {
 	$score = document.getElementById("score-p");
 	$score.innerHTML = score;
@@ -524,6 +526,7 @@ $(document).ready( function() {
 	$highScore.innerHTML = highScore;
 });
 
+// begins game
 $(document).keyup(function(e) {
 	if (e.keyCode === 13 && gameOn === false) {
 		gameOn = true;
@@ -533,10 +536,9 @@ $(document).keyup(function(e) {
 	};
 })
 
-// for when you try to play a note
-
+// when note is played during game
 $(document).keydown(function(e) {
-	// for playing the right key
+	// when the right key is played
 	if (gameOn === true) {
 		if (e.keyCode === songs[currentSong][playedNotes][1]) {
 			var note = songs[currentSong][playedNotes][0];
@@ -545,21 +547,22 @@ $(document).keydown(function(e) {
 			leadNotePosition += noteWidth;
 			score += 5;
 			$score.innerHTML = score;
-			//if you win
+			// when you win
 			if (playedNotes === songs[currentSong].length) {
 				endGame();
 				if (currentSong < 2) {
 					currentSong++;
 				};
 				$("#win").fadeIn(200);
-				// if current song = 3, final screen
 			}
+			// skips blank "x" notes
 			if (songs[currentSong][playedNotes][0] === "x") {
 				while (songs[currentSong][playedNotes][0] === "x") {
 					playedNotes++;
 					leadNotePosition += (noteWidth/2);
 				};
 			};
+		// when ESC key is hit
 		} else if (e.keyCode === 27) {
 			endGame();
 			if (score > highScore) {
@@ -568,7 +571,7 @@ $(document).keydown(function(e) {
 			};
 			score = 0;
 			$("#begin").fadeIn(200);
-		//if you press the wrong key
+		// when wrong key is pressed
 		} else {
 			playSound("flub");
 			score -= 1;
